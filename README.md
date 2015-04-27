@@ -33,7 +33,7 @@ Ce noeud permet de récupérer les états des capteurs du pad Wiimote+Nunchuk, e
 Pour ma part, la clé Bluetooth doit être réinitialisée à chaque redémarrage PC ou reconnexion physique de celle ci, commande `sudo hciconfig hci0 reset`.
 Seul le joystick 2 axes du Nunchuk est utilisé :
 
-![alt text](https://agita/cea-robotics/ros-zumo/raw/master/Galerie/pilotage.png)
+![alt text](https://github.com/Rastafouille/Zumo-ROS/raw/master/Galerie/pilotage.png)
 
 ## Launch file
 `roslaunch zumo zumo.launch` permet :
@@ -43,7 +43,7 @@ Seul le joystick 2 axes du Nunchuk est utilisé :
 - lancer le noeud `nunchuk2cmdvel`
 - lancer Rviz avec la config définie dans `/rviz/zumo.rviz` du package, permettant la visualisation du topic `/zumo/imu`
 
-![alt text](https://agita/cea-robotics/ros-zumo/raw/master/Galerie/rviz.png)
+![alt text](https://github.com/Rastafouille/Zumo-ROS/raw/master/Galerie/rviz.png)
 
 
 
