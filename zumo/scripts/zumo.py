@@ -7,16 +7,14 @@ from math import sqrt
 import rospy
 from time import sleep
 from threading import Lock
-#~ geometry_msgs/Twist
 from geometry_msgs.msg import Twist
-from sensor_msgs.msg import Imu, MagneticField
+from sensor_msgs.msg import Imu
 
 
 class Zumo:
     def __init__(self):
         self.sub_pose=rospy.Subscriber("/nunchuk/cmd_vel",Twist,self.cb_cmdvel)
         self.pub_imu=rospy.Publisher("/zumo/imu",Imu,queue_size=10)
-        self.pub_magnetic=rospy.Publisher("/zumo/magnetic",MagneticField,queue_size=10)
         try:
             self.PORT=rospy.get_param('ZUMO_PORT') 
         except:
@@ -35,9 +33,6 @@ class Zumo:
         self.p=Imu()
         self.p.header.stamp = rospy.Time.now()
         self.p.header.frame_id="map"
-        self.m=MagneticField()
-        self.m.header.stamp = rospy.Time.now()
-        self.m.header.frame_id="map"
         
         try :
             self.ser = serial.Serial( self.PORT, self.BAUDRATE,timeout=self.TIMEOUT)
@@ -66,7 +61,6 @@ class Zumo:
                        self.centrale=line.split(',')
                        rospy.loginfo( "Trame recue : "+str(self.centrale))
                        self.pubimu()
-                       self.pubmag()
            except :
                rospy.loginfo("recup trame en rade !")
               
@@ -96,13 +90,6 @@ class Zumo:
         self.p.orientation.y=float(self.centrale[5])
         self.p.orientation.z=float(self.centrale[6])
         self.pub_imu.publish(self.p)
-        
-    def pubmag(self):
-        #1gauss=0.0001Tesla, conversion a verifier
-        self.m.magnetic_field.x=float(self.centrale[4])*10
-        self.m.magnetic_field.y=float(self.centrale[5])*10
-        self.m.magnetic_field.z=float(self.centrale[6])*10
-        self.pub_magnetic.publish(self.m)
    
    
 if __name__=="__main__":

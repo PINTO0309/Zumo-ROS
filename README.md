@@ -12,10 +12,9 @@ Le robot envoie une trame d'état de ses capteurs et actionneurs :
 et attend la réception de la trame de consigne :
 `~X;[CONSIGNE_VITESSE];[CONSIGNE_ANGLE];#`
 
-A partir de la trame capteurs, le noeud publie 2 topics :
-
+A partir de la trame capteurs, le noeud publie 1 topic :
 - `/zumo/imu` de type `sensor_msgs.Imu`
-- `/zumo/mag` de type `sensor_msgs.MagneticField`
+
 
 La construction de la trame de consigne est faite à partir des données souscrites sur le topic `/nunchuk/cmd_vel` de type `geometry_msgs.Twist`. Seules les valeurs `linear.x` et `angular.z` de `/nunchuk/cmd_vel` sont utilisées pour piloter le robot. Ces valeurs sont des `float` compris entre -1 à 1. Elles sont ensuite multipliées par 100 et transformées en `int` avant d'être envoyées dans la trame de consigne.
 
@@ -33,7 +32,7 @@ Ce noeud permet de récupérer les états des capteurs du pad Wiimote+Nunchuk, e
 Pour ma part, la clé Bluetooth doit être réinitialisée à chaque redémarrage PC ou reconnexion physique de celle ci, commande `sudo hciconfig hci0 reset`.
 Seul le joystick 2 axes du Nunchuk est utilisé :
 
-![alt text](https://github.com/Rastafouille/Zumo-ROS/raw/master/Galerie/pilotage.png)
+![alt text](https://agita/cea-robotics/ros-zumo/raw/master/Galerie/pilotage.png)
 
 ## Launch file
 `roslaunch zumo zumo.launch` permet :
@@ -43,7 +42,7 @@ Seul le joystick 2 axes du Nunchuk est utilisé :
 - lancer le noeud `nunchuk2cmdvel`
 - lancer Rviz avec la config définie dans `/rviz/zumo.rviz` du package, permettant la visualisation du topic `/zumo/imu`
 
-![alt text](https://github.com/Rastafouille/Zumo-ROS/raw/master/Galerie/rviz.png)
+![alt text](https://agita/cea-robotics/ros-zumo/raw/master/Galerie/rviz.png)
 
 
 
